@@ -14,3 +14,11 @@ int main(int argc, char *argv[])
 
 
 }
+
+void writeCPPFile(){
+
+}
+
+void wtiteHFile(){
+
+}
