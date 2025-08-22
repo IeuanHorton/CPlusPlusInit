@@ -9,7 +9,7 @@ class WriteCPlusPlusFiles{//TODO, push this to it's own file (maybe)
 	    std::string tempWord = "#TEMP#"; //TODO have this be easily changeable
 	
     public:
-        void writeCppFile(std::ofstream& outfile, std::string filename){
+        void writeCppFile(std::ofstream& outfile, std::ofstream& hOutfile, std::string filename){
             std::string line = ""; //string to read each line in the Templete File
             std::ifstream templeteCppFile; //TODO make and link file
 	    templeteCppFile.open("template/template.cpp");
@@ -18,21 +18,18 @@ class WriteCPlusPlusFiles{//TODO, push this to it's own file (maybe)
 		Nutsedge::AutoReplace(line, tempWord, filename);
                 outfile << line + "\n";
             }
-        }
 
-        void writeHFile(std::ofstream& outfile, std::string filename){
-		std::string line = "";
-		std::ifstream templateHFile;
-		templateHFile.open("template/template.h");
+	    templeteCppFile.close();
 
-		while(getline(templateHFile, line)) {
-			Nutsedge::AutoReplace(line, tempWord, filename);
-			outfile << line + "\n";
-		}
-        }
+	    std::ifstream templateHFile;
+	    templateHFile.open("template/template.h");
 
-        void writeFile(std::ofstream& outfile, std::string FilenameToReplace){
-            
+	    while(getline(templateHFile, line)) {
+	 	Nutsedge::AutoReplace(line, tempWord, filename);
+		hOutfile << line + "\n";
+	    }
+
+	    templateHFile.close();
         }
 }; 
 
@@ -49,8 +46,7 @@ int main(int argc, char *argv[])
     std::ofstream outfile (filename + ".cpp");//Creates CPP file with the given name
     std::ofstream headerFile (filename + ".h");//Creates Header file
 
-    wcppf.writeCppFile(outfile, filename);
-    wcppf.writeHFile(headerFile, filename);
+    wcppf.writeCppFile(outfile,headerFile, filename);
 
     return 1;
 }
