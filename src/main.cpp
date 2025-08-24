@@ -6,6 +6,7 @@
 class WriteCPlusPlusFiles{//TODO, push this to it's own file (maybe)
     
     private:
+	    std::ifstream configFile;
 	    std::string tempWord = "#TEMP#"; //TODO have this be easily changeable
 	
     public:
@@ -31,6 +32,15 @@ class WriteCPlusPlusFiles{//TODO, push this to it's own file (maybe)
 
 	    templateHFile.close();
         }
+
+	void gatherTempWord(){
+		configFile.open("config.txt");
+		if(!configFile.good()){
+			std::string line = "";
+			getline(configFile, line);
+			tempWord = line;
+		}
+	}
 }; 
 
 int main(int argc, char *argv[])
@@ -39,6 +49,8 @@ int main(int argc, char *argv[])
     std::ifstream templeteHFile;
 
     WriteCPlusPlusFiles wcppf;
+
+    wcppf.gatherTempWord();
 
     std::cout << "Please enter the name of the file you would like to create:";
     std::cin >> filename;//Gets file name from the user
