@@ -35,7 +35,7 @@ class WriteCPlusPlusFiles{//TODO, push this to it's own file (maybe)
 
 	void gatherTempWord(){
 		configFile.open("config.txt");
-		if(!configFile.good()){
+		if(configFile.good()){
 			std::string line = "";
 			getline(configFile, line);
 			tempWord = line;
